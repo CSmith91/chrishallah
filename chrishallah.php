@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:       Chrishallah
- * Description:       Example block scaffolded with Create Block tool.
+ * Description:       Shows prayer times local to Lambeth.
  * Version:           0.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
- * Author:            The WordPress Contributors
+ * Author:            Chris Smith
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       chrishallah
@@ -24,6 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
+
+// Include prayer times logic
+require_once plugin_dir_path( __FILE__ ) . 'inc/prayer-times.php';
+
+// Initialise the plugin 
 function create_block_chrishallah_block_init() {
 	if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) { // Function introduced in WordPress 6.8.
 		wp_register_block_types_from_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
