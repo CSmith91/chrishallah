@@ -11,8 +11,11 @@ function get_islamic_prayer_times() {
     //     return $cached_data;
     // }
 
+    // Get current date
+    $date_today = date('d-m-Y');
 
-    $api_url = "https://api.aladhan.com/v1/timings/21-03-2025?latitude=51.416665&longitude=-0.1333328&method=3&shafaq=general&tune=5%2C3%2C5%2C7%2C9%2C-1%2C0%2C8%2C-6&timezonestring=UTC&calendarMethod=UAQ";
+    // Make api call
+    $api_url = "https://api.aladhan.com/v1/timings/".$date_today."?latitude=51.416665&longitude=-0.1333328&method=3&shafaq=general&tune=5%2C3%2C5%2C7%2C9%2C-1%2C0%2C8%2C-6&timezonestring=UTC&calendarMethod=UAQ";
     $response = wp_remote_get( $api_url );
 
     if ( is_wp_error( $response ) ) {
@@ -23,9 +26,6 @@ function get_islamic_prayer_times() {
     $data = json_decode( $body, true );
 
     if ( isset( $data['data'] ) ) {
-
-        // Get current date
-        $date_today = date('Y-m-d');
 
         // Convert prayer times to timestamps
         function convert_to_timestamp($time, $date) {
