@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 { name: 'Isha', time: data.isha }
             ];
 
-            console.log(`prayerTimes = ${JSON.stringify(prayerTimes)}`)
+            //console.log(`prayerTimes = ${JSON.stringify(prayerTimes)}`)
 
             // Find the next prayer
             let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
@@ -26,11 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     return;
                 }
 
+                let staticPrayerTime = nextPrayer.time;
+
                 let hours = Math.floor(remainingTime / 3600);
                 let minutes = Math.floor((remainingTime % 3600) / 60);
                 let seconds = remainingTime % 60;
+                document.getElementById('prayer-next').innerHTML = 
+                    `<strong>Next Prayer:</strong> ${nextPrayer.name} at ${staticPrayerTime}`;
                 document.getElementById('prayer-countdown').innerHTML = 
-                    `<strong>Next Prayer:</strong> ${nextPrayer.name} in ${hours}h ${minutes}m ${seconds}s`;
+                    `${hours}h ${minutes}m ${seconds}s`;
             }
 
             setInterval(updateCountdown, 1000); // Update countdown every second

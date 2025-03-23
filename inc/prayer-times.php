@@ -71,6 +71,7 @@ function get_prayer_times_api() {
     }
 
     return rest_ensure_response([
+        // the timestamps for the countdown
         'fajr' => $prayer_times['timestamp-fajr'],
         'zuhr' => $prayer_times['timestamp-zuhr'],
         'asr' => $prayer_times['timestamp-asr'],

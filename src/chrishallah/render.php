@@ -20,8 +20,8 @@
 
         <!-- Countdown & Next Prayer -->
         <div class="prayer-times-next">
-            <p><strong>Next Prayer:</strong> <?php echo esc_html( $prayer_times['next-time'] ); ?></p>
-            <p><strong><p id="prayer-countdown">Loading countdown...</p></strong></p>
+            <p id="prayer-next">Loading next prayer...</p>
+            <p id="prayer-countdown">Loading countdown...</p>
         </div>
 
         <!-- Prayer Times List -->
