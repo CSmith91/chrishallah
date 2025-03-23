@@ -15,12 +15,12 @@
 			echo esc_html__( $prayer_times['next-time']) . '<br>';
 			echo esc_html__( $prayer_times['countdown']) . '<br>';
             echo '<strong>Prayer Times:</strong><br>';
-            echo 'Fajr: ' . esc_html( $prayer_times['fajr-init'] ) . '<br>';
-			echo '<i>Sunrise</i>: ' . esc_html( $prayer_times['sunrise-today'] ) . '<br>';
-            echo 'Zuhr: ' . esc_html( $prayer_times['zuhr-init'] ) . '<br>';
-            echo '\'Asr: ' . esc_html( $prayer_times['asr-init'] ) . '<br>';
-            echo 'Maghrib: ' . esc_html( $prayer_times['maghrib-init'] ) . '<br>';
-            echo '\'Isha: ' . esc_html( $prayer_times['isha-init'] );
+            echo 'Fajr: ' . esc_html( $prayer_times['fajr'] ) . '<br>';
+			echo '<i>Sunrise</i>: ' . esc_html( $prayer_times['sunrise'] ) . '<br>';
+            echo 'Zuhr: ' . esc_html( $prayer_times['zuhr'] ) . '<br>';
+            echo '\'Asr: ' . esc_html( $prayer_times['asr'] ) . '<br>';
+            echo 'Maghrib: ' . esc_html( $prayer_times['maghrib'] ) . '<br>';
+            echo '\'Isha: ' . esc_html( $prayer_times['isha'] );
         } else {
             echo esc_html__( 'Prayer times are not available at the moment.', 'chrishallah' );
         }
