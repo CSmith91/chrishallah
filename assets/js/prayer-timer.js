@@ -5,21 +5,23 @@ document.addEventListener("DOMContentLoaded", function() {
             let now = Math.floor(Date.now() / 1000); // Get current timestamp
             let prayerTimes = [
                 { name: 'Fajr', time: data.fajr },
-                { name: 'Dhuhr', time: data.dhuhr },
+                { name: 'Zuhr', time: data.zuhr },
                 { name: 'Asr', time: data.asr },
                 { name: 'Maghrib', time: data.maghrib },
                 { name: 'Isha', time: data.isha }
             ];
+
+            console.log(`prayerTimes = ${JSON.stringify(prayerTimes)}`)
 
             // Find the next prayer
             let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
 
             function updateCountdown() {
                 let remainingTime = nextPrayer.time - Math.floor(Date.now() / 1000);
-                if (remainingTime <= 0) {
-                    location.reload();  // Reload the page when time reaches zero
-                    return;
-                }
+                // if (remainingTime <= 0) {
+                //     location.reload();  // Reload the page when time reaches zero
+                //     return;
+                // }
 
                 let hours = Math.floor(remainingTime / 3600);
                 let minutes = Math.floor((remainingTime % 3600) / 60);
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     `Next: ${nextPrayer.name} in ${hours}h ${minutes}m ${seconds}s`;
             }
 
-            setInterval(updateCountdown, 1000); // Update countdown every second
+            setInterval(updateCountdown, 60000); // Update countdown every minute
             updateCountdown(); // Run immediately
         });
 });

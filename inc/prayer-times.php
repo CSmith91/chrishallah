@@ -13,6 +13,7 @@ function get_islamic_prayer_times() {
 
     // Get current date
     $date_today = date('d-m-Y');
+    $date_reverse = date('Y-m-d');
 
     // Make api call
     $api_url = "https://api.aladhan.com/v1/timings/".$date_today."?latitude=51.416665&longitude=-0.1333328&method=3&shafaq=general&tune=5%2C3%2C5%2C7%2C9%2C-1%2C0%2C8%2C-6&timezonestring=UTC&calendarMethod=UAQ";
@@ -45,12 +46,13 @@ function get_islamic_prayer_times() {
             'asr'          => $data['data']['timings']['Asr'],
             'maghrib'      => $data['data']['timings']['Maghrib'],
             'isha'         => $data['data']['timings']['Isha'],
-            // 'sunrise'      => convert_to_timestamp($data['data']['timings']['Sunrise'], $date_today),
-            // 'fajr'         => convert_to_timestamp($data['data']['timings']['Fajr'], $date_today),
-            // 'Zuhr'        => convert_to_timestamp($data['data']['timings']['Dhuhr'], $date_today),
-            // 'asr'          => convert_to_timestamp($data['data']['timings']['Asr'], $date_today),
-            // 'maghrib'      => convert_to_timestamp($data['data']['timings']['Maghrib'], $date_today),
-            // 'isha'         => convert_to_timestamp($data['data']['timings']['Isha'], $date_today),
+            // Times converted to timestamps
+            'timestamp-sunrise'      => convert_to_timestamp($data['data']['timings']['Sunrise'], $date_reverse),
+            'timestamp-fajr'         => convert_to_timestamp($data['data']['timings']['Fajr'], $date_reverse),
+            'timestamp-zuhr'        => convert_to_timestamp($data['data']['timings']['Dhuhr'], $date_reverse),
+            'timestamp-asr'          => convert_to_timestamp($data['data']['timings']['Asr'], $date_reverse),
+            'timestamp-maghrib'      => convert_to_timestamp($data['data']['timings']['Maghrib'], $date_reverse),
+            'timestamp-isha'         => convert_to_timestamp($data['data']['timings']['Isha'], $date_reverse),
         ];
 
         //set_transient( $cache_key, $prayer_times, DAY_IN_SECONDS ); // Cache for 24 hours
@@ -69,11 +71,11 @@ function get_prayer_times_api() {
     }
 
     return rest_ensure_response([
-        'fajr' => strtotime($prayer_times['fajr']),
-        'zuhr' => strtotime($prayer_times['zuhr']),
-        'asr' => strtotime($prayer_times['asr']),
-        'maghrib' => strtotime($prayer_times['maghrib']),
-        'isha' => strtotime($prayer_times['isha']),
+        'fajr' => $prayer_times['timestamp-fajr'],  // No need for strtotime()
+        'zuhr' => $prayer_times['timestamp-zuhr'],
+        'asr' => $prayer_times['timestamp-asr'],
+        'maghrib' => $prayer_times['timestamp-maghrib'],
+        'isha' => $prayer_times['timestamp-isha'],
     ]);
 }
 
