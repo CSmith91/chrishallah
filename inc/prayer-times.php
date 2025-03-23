@@ -77,6 +77,12 @@ function get_prayer_times_api() {
         'asr' => $prayer_times['timestamp-asr'],
         'maghrib' => $prayer_times['timestamp-maghrib'],
         'isha' => $prayer_times['timestamp-isha'],
+        // Add formatted prayer times (12:30 format)
+        'fajr_time' => $prayer_times['fajr'],
+        'zuhr_time' => $prayer_times['zuhr'],
+        'asr_time'  => $prayer_times['asr'],
+        'maghrib_time' => $prayer_times['maghrib'],
+        'isha_time' => $prayer_times['isha'],
     ]);
 }
 
