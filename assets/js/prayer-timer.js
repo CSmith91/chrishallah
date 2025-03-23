@@ -18,19 +18,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
             function updateCountdown() {
                 let remainingTime = nextPrayer.time - Math.floor(Date.now() / 1000);
-                // if (remainingTime <= 0) {
-                //     location.reload();  // Reload the page when time reaches zero
-                //     return;
-                // }
+
+                // the below will reload on loop after the last prayer of the day until midnight
+                // need to add code that checks if its past Isha, and if so, load the next days prayers
+                if (remainingTime <= 0) {
+                    location.reload();  // Reload the page when time reaches zero
+                    return;
+                }
 
                 let hours = Math.floor(remainingTime / 3600);
                 let minutes = Math.floor((remainingTime % 3600) / 60);
                 let seconds = remainingTime % 60;
                 document.getElementById('prayer-countdown').innerHTML = 
-                    `Next: ${nextPrayer.name} in ${hours}h ${minutes}m ${seconds}s`;
+                    `<strong>Next Prayer:</strong> ${nextPrayer.name} in ${hours}h ${minutes}m ${seconds}s`;
             }
 
-            setInterval(updateCountdown, 60000); // Update countdown every minute
+            setInterval(updateCountdown, 1000); // Update countdown every second
             updateCountdown(); // Run immediately
         });
 });

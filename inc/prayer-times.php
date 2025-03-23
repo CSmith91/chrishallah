@@ -71,7 +71,7 @@ function get_prayer_times_api() {
     }
 
     return rest_ensure_response([
-        'fajr' => $prayer_times['timestamp-fajr'],  // No need for strtotime()
+        'fajr' => $prayer_times['timestamp-fajr'],
         'zuhr' => $prayer_times['timestamp-zuhr'],
         'asr' => $prayer_times['timestamp-asr'],
         'maghrib' => $prayer_times['timestamp-maghrib'],
