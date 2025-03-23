@@ -1,0 +1,32 @@
+:root {
+    --rich-green: #2c8c2c;
+    --gold: #9aa54a;
+    --text-brown: #3c3c23;
+    --pale-green: #5cb574;
+}
+
+body {
+    color: var(--text-brown);
+}
+
+.hide {
+    display: none;
+}
+
+.prayer-times-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* White background for table */
+}
+
+.prayer-times-table th,
+.prayer-times-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.prayer-times-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}

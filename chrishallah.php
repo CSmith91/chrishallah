@@ -44,9 +44,11 @@ function create_block_chrishallah_block_init() {
 }
 add_action( 'init', 'create_block_chrishallah_block_init' );
 
-// this loads our javascript for the countdown
-function enqueue_prayer_timer_script() {
+// Load JavaScript for the countdown and CSS
+function enqueue_prayer_assets() {
     if ( ! is_admin() ) { // Load only on frontend
+
+        // Enqueue JavaScript
         wp_enqueue_script(
             'prayer-timer', 
             plugin_dir_url(__FILE__) . 'assets/js/prayer-timer.js', 
@@ -54,7 +56,15 @@ function enqueue_prayer_timer_script() {
             null, 
             true
         );
+
+        // Enqueue CSS
+        wp_enqueue_style(
+            'prayer-times-style', 
+            plugin_dir_url(__FILE__) . 'assets/css/styles.css', 
+            array(), 
+            '1.0.0'
+        );
     }
 }
-add_action('wp_enqueue_scripts', 'enqueue_prayer_timer_script');
+add_action('wp_enqueue_scripts', 'enqueue_prayer_assets');
 

@@ -10,36 +10,42 @@ document.addEventListener("DOMContentLoaded", function() {
                 { name: 'Maghrib', time: data.maghrib, formattedTime: data.maghrib_time },
                 { name: 'Isha', time: data.isha, formattedTime: data.isha_time }
             ];
+            let lastPrayer = data.isha;
 
-            //console.log(`prayerTimes = ${JSON.stringify(prayerTimes)}`)
+            // first, check have prayers to do today
+            if(lastPrayer > now){
+                // Find the next prayer
+                let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
 
-            // Find the next prayer
-            let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
+                function updateCountdown() {
+                    let remainingTime = nextPrayer.time - now;
+                    let nextPrayerTime = nextPrayer.formattedTime;
 
-            function updateCountdown() {
-                let remainingTime = nextPrayer.time - Math.floor(Date.now() / 1000);
+                    if (remainingTime <= 0) {
+                        location.reload();  // Reload the page when time reaches zero
+                        return;
+                    }
 
-                if (remainingTime <= 0 && nextPrayer.name !== 'Isha') {
-                    location.reload();  // Reload the page when time reaches zero
-                    return;
+                    let hours = Math.floor(remainingTime / 3600);
+                    let minutes = Math.floor((remainingTime % 3600) / 60);
+                    let seconds = remainingTime % 60;
+                    document.getElementById('prayer-next').innerHTML = 
+                        `<strong>Next Prayer:</strong> ${nextPrayer.name} at ${nextPrayerTime}`;
+                    document.getElementById('prayer-countdown').innerHTML = 
+                        `${hours}h ${minutes}m ${seconds}s`;
                 }
-                else if (remainingTime <= 0 && nextPrayer.name === 'Isha') {
-                    // need to request to load tomorrow's data
-                    return;
-                }
-
-                let nextPrayerTime = nextPrayer.formattedTime;
-
-                let hours = Math.floor(remainingTime / 3600);
-                let minutes = Math.floor((remainingTime % 3600) / 60);
-                let seconds = remainingTime % 60;
-                document.getElementById('prayer-next').innerHTML = 
-                    `<strong>Next Prayer:</strong> ${nextPrayer.name} at ${nextPrayerTime}`;
-                document.getElementById('prayer-countdown').innerHTML = 
-                    `${hours}h ${minutes}m ${seconds}s`;
+                setInterval(updateCountdown, 1000); // Update countdown every second
+                updateCountdown(); // Run immediately
             }
+            // If Isha has passed, display "No more prayers today" without reloading every second
+            else {
+                document.getElementById('prayer-next').innerHTML = 
+                    `There are no more prayers today.`;
+                document.getElementById('prayer-countdown').classList.add('hide');
 
-            setInterval(updateCountdown, 1000); // Update countdown every second
-            updateCountdown(); // Run immediately
+                // Schedule a reload at midnight to fetch the next day's prayers
+                let secondsUntilMidnight = (24 * 3600) - (now % (24 * 3600));
+                setTimeout(() => location.reload(), secondsUntilMidnight * 1000);
+            }
         });
 });
