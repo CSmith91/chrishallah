@@ -16,9 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
             if(lastPrayer > now){
                 // Find the next prayer
                 let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
+                document.getElementById(`${nextPrayer.name}-start`).classList.add('focus');
+                document.getElementById(`${nextPrayer.name}-iqadah`).classList.add('focus');
 
                 function updateCountdown() {
-                    let remainingTime = nextPrayer.time - now;
+                    let remainingTime = nextPrayer.time - Math.floor(Date.now() / 1000); // Recalculate current timestamp
                     let nextPrayerTime = nextPrayer.formattedTime;
 
                     if (remainingTime <= 0) {

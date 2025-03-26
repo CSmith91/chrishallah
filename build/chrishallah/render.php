@@ -30,13 +30,13 @@
 			<table>
 				<thead>
 					<tr>
-						<th></th> <!-- Empty top-left corner -->
-						<th>Fajr</th>
+						<th>Prayer</th>
+						<th id="Fajr">Fajr</th>
 						<th>Sunrise</th>
-						<th>Zuhr</th>
-						<th>Asr</th>
-						<th>Maghrib</th>
-						<th>Isha</th>
+						<th id="Zuhr">Zuhr</th>
+						<th id="Asr">Asr</th>
+						<th id="Maghrib">Maghrib</th>
+						<th id="Isha">Isha</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,8 +44,8 @@
 						<td><strong>Starts</strong></td>
 						<td><?php echo esc_html($prayer_times['fajr']); ?></td>
 						<td><?php echo esc_html($prayer_times['sunrise']); ?></td>
-						<td><?php echo esc_html($prayer_times['zuhr']); ?></td>
-						<td><?php echo esc_html($prayer_times['asr']); ?></td>
+						<td id="Zuhr-start"><?php echo esc_html($prayer_times['zuhr']); ?></td>
+						<td id="Asr-start"><?php echo esc_html($prayer_times['asr']); ?></td>
 						<td><?php echo esc_html($prayer_times['maghrib']); ?></td>
 						<td><?php echo esc_html($prayer_times['isha']); ?></td>
 					</tr>
@@ -53,8 +53,8 @@
 						<td><strong>Iqadah</strong></td>
 						<td><?php echo esc_html($prayer_times['iqadah_fajr'] ?? '-'); ?></td>
 						<td>-</td> <!-- No Iqadah for Sunrise -->
-						<td><?php echo esc_html($prayer_times['iqadah_zuhr'] ?? '-'); ?></td>
-						<td><?php echo esc_html($prayer_times['iqadah_asr'] ?? '-'); ?></td>
+						<td id="Zuhr-iqadah"><?php echo esc_html($prayer_times['iqadah_zuhr'] ?? '-'); ?></td>
+						<td id="Asr-iqadah"><?php echo esc_html($prayer_times['iqadah_asr'] ?? '-'); ?></td>
 						<td><?php echo esc_html($prayer_times['iqadah_maghrib'] ?? '-'); ?></td>
 						<td><?php echo esc_html($prayer_times['iqadah_isha'] ?? '-'); ?></td>
 					</tr>

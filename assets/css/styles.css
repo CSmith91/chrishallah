@@ -16,7 +16,7 @@ body {
 .prayer-times-table table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff; /* White background for table */
+    /* background-color: #fff; White background for table */
 }
 
 .prayer-times-table th,
@@ -27,6 +27,18 @@ body {
 }
 
 .prayer-times-table th {
-    background-color: #f4f4f4;
+    background-color: var(--gold);
     font-weight: bold;
+}
+
+.prayer-times-table td:hover {
+    background-color: #d3ffd3;
+}
+
+.prayer-times-table td {
+    transition: background-color 0.3s ease; /* Transition for background color */
+}
+
+.focus {
+    background-color: var(--pale-green);
 }
