@@ -4,20 +4,20 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             let now = Math.floor(Date.now() / 1000); // Get current timestamp
             let prayerTimes = [
-                { name: 'Fajr', time: data.fajr, formattedTime: data.fajr_time },
-                { name: 'Zuhr', time: data.zuhr, formattedTime: data.zuhr_time },
-                { name: 'Asr', time: data.asr, formattedTime: data.asr_time },
-                { name: 'Maghrib', time: data.maghrib, formattedTime: data.maghrib_time },
-                { name: 'Isha', time: data.isha, formattedTime: data.isha_time }
+                { name: 'Fajr', time: data['timestamps']['timestamp-fajr'], formattedTime: data['iqamah_times']['fajr'] },
+                { name: 'Zuhr', time: data['timestamps']['timestamp-zuhr'], formattedTime: data['iqamah_times']['zuhr'] },
+                { name: 'Asr', time: data['timestamps']['timestamp-asr'], formattedTime: data['iqamah_times']['asr'] },
+                { name: 'Maghrib', time: data['timestamps']['timestamp-maghrib'], formattedTime: data['iqamah_times']['maghrib'] },
+                { name: 'Isha', time: data['timestamps']['timestamp-isha'], formattedTime: data['iqamah_times']['isha'] }
             ];
-            let lastPrayer = data.isha;
+            let lastPrayer = data['timestamps']['timestamp-isha'];
 
             // first, check have prayers to do today
             if(lastPrayer > now){
                 // Find the next prayer
                 let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
                 document.getElementById(`${nextPrayer.name}-start`).classList.add('focus');
-                document.getElementById(`${nextPrayer.name}-iqadah`).classList.add('focus');
+                document.getElementById(`${nextPrayer.name}-iqamah`).classList.add('focus');
 
                 function updateCountdown() {
                     let remainingTime = nextPrayer.time - Math.floor(Date.now() / 1000); // Recalculate current timestamp

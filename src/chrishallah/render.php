@@ -42,21 +42,21 @@
 				<tbody>
 					<tr>
 						<td><strong>Starts</strong></td>
-						<td><?php echo esc_html($prayer_times['fajr']); ?></td>
-						<td><?php echo esc_html($prayer_times['sunrise']); ?></td>
-						<td id="Zuhr-start"><?php echo esc_html($prayer_times['zuhr']); ?></td>
-						<td id="Asr-start"><?php echo esc_html($prayer_times['asr']); ?></td>
-						<td><?php echo esc_html($prayer_times['maghrib']); ?></td>
-						<td><?php echo esc_html($prayer_times['isha']); ?></td>
+						<td id="Fajr-start"><?php echo esc_html($prayer_times['prayer_times_base']['fajr']); ?></td>
+						<td><?php echo esc_html($prayer_times['prayer_times_base']['sunrise']); ?></td>
+						<td id="Zuhr-start"><?php echo esc_html($prayer_times['prayer_times_base']['zuhr']); ?></td>
+						<td id="Asr-start"><?php echo esc_html($prayer_times['prayer_times_base']['asr']); ?></td>
+						<td id="Maghrib-start"><?php echo esc_html($prayer_times['prayer_times_base']['maghrib']); ?></td>
+						<td id="Isha-start"><?php echo esc_html($prayer_times['prayer_times_base']['isha']); ?></td>
 					</tr>
 					<tr>
-						<td><strong>Iqadah</strong></td>
-						<td><?php echo esc_html($prayer_times['iqadah_fajr'] ?? '-'); ?></td>
-						<td>-</td> <!-- No Iqadah for Sunrise -->
-						<td id="Zuhr-iqadah"><?php echo esc_html($prayer_times['iqadah_zuhr'] ?? '-'); ?></td>
-						<td id="Asr-iqadah"><?php echo esc_html($prayer_times['iqadah_asr'] ?? '-'); ?></td>
-						<td><?php echo esc_html($prayer_times['iqadah_maghrib'] ?? '-'); ?></td>
-						<td><?php echo esc_html($prayer_times['iqadah_isha'] ?? '-'); ?></td>
+						<td><strong>Iqamah</strong></td>
+						<td id="Fajr-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['fajr'] ?? '-'); ?></td>
+						<td>-</td> <!-- No Iqamah for Sunrise -->
+						<td id="Zuhr-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['zuhr'] ?? '-'); ?></td>
+						<td id="Asr-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['asr'] ?? '-'); ?></td>
+						<td id="Maghrib-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['maghrib'] ?? '-'); ?></td>
+						<td id="Isha-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['isha'] ?? '-'); ?></td>
 					</tr>
 				</tbody>
 			</table>
