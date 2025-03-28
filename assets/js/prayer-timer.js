@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if(lastPrayer > now){
                 // Find the next prayer
                 let nextPrayer = prayerTimes.find(prayer => prayer.time > now) || prayerTimes[0];
-                document.getElementById(`${nextPrayer.name}-start`).classList.add('focus');
-                document.getElementById(`${nextPrayer.name}-iqamah`).classList.add('focus');
+                console.log(`${nextPrayer.name}-cell`)
+                document.getElementById(`${nextPrayer.name}-cell`).classList.add('focus');
 
                 function updateCountdown() {
                     let remainingTime = nextPrayer.time - Math.floor(Date.now() / 1000); // Recalculate current timestamp
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     let minutes = Math.floor((remainingTime % 3600) / 60);
                     let seconds = remainingTime % 60;
                     document.getElementById('prayer-next').innerHTML = 
-                        `<strong>Next Prayer:</strong> ${nextPrayer.name} at ${nextPrayerTime}`;
+                        `<strong>Next Prayer:</strong> ${nextPrayer.name} Iqamah at ${nextPrayerTime}`;
                     document.getElementById('prayer-countdown').innerHTML = 
                         `${hours}h ${minutes}m ${seconds}s`;
                 }

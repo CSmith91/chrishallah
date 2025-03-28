@@ -26,41 +26,49 @@
 
         <!-- Prayer Times List -->
 		<div class="prayer-times-table">
-			<h3>Prayer Times</h3>
-			<table>
-				<thead>
-					<tr>
-						<th>Prayer</th>
-						<th id="Fajr">Fajr</th>
-						<th>Sunrise</th>
-						<th id="Zuhr">Zuhr</th>
-						<th id="Asr">Asr</th>
-						<th id="Maghrib">Maghrib</th>
-						<th id="Isha">Isha</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><strong>Starts</strong></td>
-						<td id="Fajr-start"><?php echo esc_html($prayer_times['prayer_times_base']['fajr']); ?></td>
-						<td><?php echo esc_html($prayer_times['prayer_times_base']['sunrise']); ?></td>
-						<td id="Zuhr-start"><?php echo esc_html($prayer_times['prayer_times_base']['zuhr']); ?></td>
-						<td id="Asr-start"><?php echo esc_html($prayer_times['prayer_times_base']['asr']); ?></td>
-						<td id="Maghrib-start"><?php echo esc_html($prayer_times['prayer_times_base']['maghrib']); ?></td>
-						<td id="Isha-start"><?php echo esc_html($prayer_times['prayer_times_base']['isha']); ?></td>
-					</tr>
-					<tr>
-						<td><strong>Iqamah</strong></td>
-						<td id="Fajr-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['fajr'] ?? '-'); ?></td>
-						<td>-</td> <!-- No Iqamah for Sunrise -->
-						<td id="Zuhr-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['zuhr'] ?? '-'); ?></td>
-						<td id="Asr-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['asr'] ?? '-'); ?></td>
-						<td id="Maghrib-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['maghrib'] ?? '-'); ?></td>
-						<td id="Isha-iqamah"><?php echo esc_html($prayer_times['iqamah_times']['isha'] ?? '-'); ?></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			<div class="prayer-grid">
+				<div class="prayer-cell" id="Fajr-cell">
+					<!-- <img src="fajr.png" alt="Fajr" class="prayer-icon"> -->
+					<span class="prayer-name">Fajr</span>
+					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['fajr']); ?></span>
+					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['fajr'] ?? '-'); ?></span>
+				</div>
+
+				<div class="prayer-cell" id="Sunrise-cell">
+					<!-- <img src="sunrise.png" alt="Sunrise" class="prayer-icon"> -->
+					<span class="prayer-name">Sunrise</span>
+					<span class="prayer-time"><?php echo esc_html($prayer_times['prayer_times_base']['sunrise']); ?></span>
+				</div>
+
+				<div class="prayer-cell" id="Zuhr-cell">
+					<!-- <img src="zuhr.png" alt="Zuhr" class="prayer-icon"> -->
+					<span class="prayer-name">Zuhr</span>
+					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['zuhr']); ?></span>
+					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['zuhr'] ?? '-'); ?></span>
+				</div>
+
+				<div class="prayer-cell" id="Asr-cell">
+					<!-- <img src="asr.png" alt="Asr" class="prayer-icon"> -->
+					<span class="prayer-name">Asr</span>
+					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['asr']); ?></span>
+					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['asr'] ?? '-'); ?></span>
+				</div>
+
+				<div class="prayer-cell" id="Maghrib-cell">
+					<!-- <img src="maghrib.png" alt="Maghrib" class="prayer-icon"> -->
+					<span class="prayer-name">Maghrib</span>
+					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['maghrib']); ?></span>
+					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['maghrib'] ?? '-'); ?></span>
+				</div>
+
+				<div class="prayer-cell" id="Isha-cell">
+					<!-- <img src="isha.png" alt="Isha" class="prayer-icon"> -->
+					<span class="prayer-name">Isha</span>
+					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['isha']); ?></span>
+					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['isha'] ?? '-'); ?></span>
+				</div>
+			</div>
+
 
     <?php else : ?>
         <p class="prayer-times-error"><?php echo esc_html__( 'Prayer times are not available at the moment.', 'chrishallah' ); ?></p>

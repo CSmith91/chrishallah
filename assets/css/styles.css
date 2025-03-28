@@ -13,32 +13,54 @@ body {
     display: none;
 }
 
-.prayer-times-table table {
-    width: 100%;
-    border-collapse: collapse;
-    /* background-color: #fff; White background for table */
-}
-
-.prayer-times-table th,
-.prayer-times-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
+.prayer-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 equal columns */
+    gap: 10px;
     text-align: center;
+    padding: 20px;
 }
 
-.prayer-times-table th {
-    background-color: var(--gold);
+.prayer-cell {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.prayer-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.prayer-name {
+    display: block;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.prayer-times-table td:hover {
+.prayer-time {
+    display: block;
+    font-size: 1em;
+    color: var(--pale-green);
+    margin-bottom: 5px;
+}
+
+.prayer-iqamah {
+    display: block;
+    font-size: 1.2em;
+    color: var(--rich-green);
+}
+
+.prayer-cell:hover {
     background-color: #d3ffd3;
 }
 
-.prayer-times-table td {
+.prayer-cell {
     transition: background-color 0.3s ease; /* Transition for background color */
 }
 
 .focus {
-    background-color: var(--pale-green);
+    box-shadow: 0 0 10px 5px var(--gold);
 }
