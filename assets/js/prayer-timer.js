@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             let now = Math.floor(Date.now() / 1000); // Get current timestamp
             let prayerTimes = [
-                { name: 'Fajr', time: data['timestamps']['timestamp-fajr'], formattedTime: data['iqamah_times']['fajr'] },
-                { name: 'Zuhr', time: data['timestamps']['timestamp-zuhr'], formattedTime: data['iqamah_times']['zuhr'] },
-                { name: 'Asr', time: data['timestamps']['timestamp-asr'], formattedTime: data['iqamah_times']['asr'] },
-                { name: 'Maghrib', time: data['timestamps']['timestamp-maghrib'], formattedTime: data['iqamah_times']['maghrib'] },
-                { name: 'Isha', time: data['timestamps']['timestamp-isha'], formattedTime: data['iqamah_times']['isha'] }
-            ];
-            let lastPrayer = data['timestamps']['timestamp-isha'];
+                { name: 'Fajr', time: data?.timestamps?.['timestamp-fajr'] ?? 0, formattedTime: data?.iqamah_times?.fajr ?? 'N/A' },
+                { name: 'Zuhr', time: data?.timestamps?.['timestamp-zuhr'] ?? 0, formattedTime: data?.iqamah_times?.zuhr ?? 'N/A' },
+                { name: 'Asr', time: data?.timestamps?.['timestamp-asr'] ?? 0, formattedTime: data?.iqamah_times?.asr ?? 'N/A' },
+                { name: 'Maghrib', time: data?.timestamps?.['timestamp-magrib'] ?? 0, formattedTime: data?.iqamah_times?.maghrib ?? 'N/A' },
+                { name: 'Isha', time: data?.timestamps?.['timestamp-isha'] ?? 0, formattedTime: data?.iqamah_times?.isha ?? 'N/A' }
+            ];            
+            let lastPrayer = data?.timestamps?.['timestamp-isha'] ?? 0 // data['timestamps']['timestamp-isha'];
 
             // first, check have prayers to do today
             if(lastPrayer > now){
