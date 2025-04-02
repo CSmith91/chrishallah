@@ -15,7 +15,6 @@
         <div class="prayer-times-dates">
             <p><strong><?php echo esc_html( $prayer_times['greg-today'] ); ?></strong></p>
             <p><strong><?php echo esc_html( $prayer_times['hijri-today'] ); ?></strong></p>
-            <p><strong><?php echo esc_html( $prayer_times['day-name'] ); ?></strong></p>
         </div>
 
         <!-- Countdown & Next Prayer -->

@@ -3,6 +3,30 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
+// allows us to convert todays date in the hijri format
+function convert_to_hijri($gregorian_date) {
+    $formatter = new IntlDateFormatter(
+        "en@calendar=islamic",
+        IntlDateFormatter::LONG,
+        IntlDateFormatter::NONE,
+        'UTC',
+        IntlDateFormatter::TRADITIONAL
+    );
+
+    $timestamp = strtotime($gregorian_date);
+    $hijri_date = $formatter->format($timestamp);
+
+    // Remove "AH" and commas
+    $hijri_date = preg_replace('/AH|\s*,/', '', $hijri_date);
+
+    // Swap "Shawwal 4 1446" → "4 Shawwal 1446"
+    if (preg_match('/(\w+)\s+(\d+)\s+(\d+)/', $hijri_date, $matches)) {
+        $hijri_date = "{$matches[2]} {$matches[1]} {$matches[3]}";
+    }
+
+    return trim($hijri_date);
+}
+
 function get_islamic_prayer_times() {
     // $cache_key = 'chrishallah_prayer_times';
     // $cached_data = get_transient( $cache_key );
@@ -10,10 +34,6 @@ function get_islamic_prayer_times() {
     // if ( $cached_data ) {
     //     return $cached_data;
     // }
-
-    // Get current date
-    $date_today = date('d-m-Y');
-    $date_reverse = date('Y-m-d');
 
     require_once __DIR__ . '/../config.php'; // Load environment variables
     $api_key = $_ENV['API_KEY']; // Now available globally
@@ -48,14 +68,19 @@ function get_islamic_prayer_times() {
             'isha'     => $data['isha'],
         ];
         
-        // jamat times, // converted to iqamah
+        // jamat times, // converted to iqamah by adding 10 mins to jamat
         $iqamah_to_jamat_delay = 600;
         $iqamah_times = [
-            'fajr'    => date("H:i", strtotime($data['fajr_jamat']) + $iqamah_to_jamat_delay),  
-            'zuhr'    => date("H:i", strtotime($data['dhuhr_jamat']) + $iqamah_to_jamat_delay),   
+            // 'fajr'    => $data['fajr_jamat'],  
+            // 'zuhr'    => $data['dhuhr_jamat'],   
+            // 'asr'     => $data['asr_jamat'],    
+            // 'maghrib' => $data['magrib_jamat'], 
+            // 'isha'    => $data['isha_jamat'],
+            'fajr'    => date("H:i", strtotime($data['fajr_jamat'])),  
+            'zuhr'    => date("H:i", strtotime($data['dhuhr_jamat'])),   
             'asr'     => date("H:i", strtotime($data['asr_jamat']) + $iqamah_to_jamat_delay),    
-            'maghrib' => date("H:i", strtotime($data['magrib_jamat']) + $iqamah_to_jamat_delay), 
-            'isha'    => date("H:i", strtotime($data['isha_jamat']) + $iqamah_to_jamat_delay),
+            'maghrib' => date("H:i", strtotime($data['magrib_jamat'])), 
+            'isha'    => date("H:i", strtotime($data['isha_jamat'])),
         ];
 
         // Convert prayer times to timestamps
@@ -63,13 +88,16 @@ function get_islamic_prayer_times() {
         foreach ($iqamah_times as $key => $time) {
             $timestamps["timestamp-$key"] = strtotime("{$data['date']} $time");
         }
+        
+        // Convert Gregorian date to Hijri
+        $hijri_date = convert_to_hijri($data['date']);
 
         // Compile final data
         $prayer_times = [
-            // 'greg-today' => $data['data']['date']['gregorian']['day'] . ' ' . $data['data']['date']['gregorian']['month']['en'] . ' ' . $data['data']['date']['gregorian']['year'],
-            // 'hijri-today' => $data['data']['date']['hijri']['day'] . ' ' . $data['data']['date']['hijri']['month']['en'] . ' ' . $data['data']['date']['hijri']['year'],
-            // 'day-name'    => $data['data']['date']['hijri']['weekday']['en'],
-            'prayer_times_base' => $base_prayer_times, 
+            'greg-today' => date('jS F Y', strtotime($data['date'])),
+            'hijri-today' => $hijri_date,
+            'prayer_times_base' => $base_prayer_times,
+            'iqamah_times' => $iqamah_times,
             'timestamps' => $timestamps ];
 
         // set_transient( $cache_key, $prayer_times, DAY_IN_SECONDS ); // Cache for 24 hours

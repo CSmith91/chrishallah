@@ -7,10 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 { name: 'Fajr', time: data?.timestamps?.['timestamp-fajr'] ?? 0, formattedTime: data?.iqamah_times?.fajr ?? 'N/A' },
                 { name: 'Zuhr', time: data?.timestamps?.['timestamp-zuhr'] ?? 0, formattedTime: data?.iqamah_times?.zuhr ?? 'N/A' },
                 { name: 'Asr', time: data?.timestamps?.['timestamp-asr'] ?? 0, formattedTime: data?.iqamah_times?.asr ?? 'N/A' },
-                { name: 'Maghrib', time: data?.timestamps?.['timestamp-magrib'] ?? 0, formattedTime: data?.iqamah_times?.maghrib ?? 'N/A' },
+                { name: 'Maghrib', time: data?.timestamps?.['timestamp-maghrib'] ?? 0, formattedTime: data?.iqamah_times?.maghrib ?? 'N/A' },
                 { name: 'Isha', time: data?.timestamps?.['timestamp-isha'] ?? 0, formattedTime: data?.iqamah_times?.isha ?? 'N/A' }
             ];            
             let lastPrayer = data?.timestamps?.['timestamp-isha'] ?? 0 // data['timestamps']['timestamp-isha'];
+
+            console.log(JSON.stringify(prayerTimes))
 
             // first, check have prayers to do today
             if(lastPrayer > now){
