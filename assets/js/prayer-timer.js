@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 { name: 'Isha', time: data?.timestamps?.['timestamp-isha'] ?? 0, formattedTime: data?.iqamah_times?.isha ?? 'N/A' }
             ];            
             let lastPrayer = data?.timestamps?.['timestamp-isha'] ?? 0 // data['timestamps']['timestamp-isha'];
-            console.log("Last prayer is: "+lastPrayer+"  and nowTimestamp is:"+nowTimestamp)
+            console.log("Last prayer is: "+lastPrayer+"  and nowTimestamp is:"+nowTimestamp);
+            console.log("Difference is:"+(lastPrayer-nowTimestamp))
 
             // first, check have prayers to do today
             if(lastPrayer > nowTimestamp){
