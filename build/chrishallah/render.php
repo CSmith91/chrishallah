@@ -11,7 +11,7 @@
     if ( $prayer_times ) :
 
 		$labels = [
-			'start' => 'Start',  // Change this to 'Begins' in one place if needed
+			'start' => 'Begins',  // Change this to 'Begins' in one place if needed
 			'iqamah' => 'Iqamah'
 		];
 		
