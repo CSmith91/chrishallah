@@ -34,7 +34,6 @@ body {
 
 #prayer-next,
 #prayer-countdown {
-    font-weight: bold; /* Make countdown and next prayer text bold */
     color: var(--rich-green); /* Use a consistent color for countdown and next prayer */
 }
 

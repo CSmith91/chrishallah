@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     let minutes = Math.floor((remainingTime % 3600) / 60);
                     let seconds = remainingTime % 60;
                     document.getElementById('prayer-next').innerHTML = 
-                        `<strong>Next Prayer:</strong> ${nextPrayer.name} Iqamah at ${nextPrayerTime}`;
+                        `Next Prayer: <strong>${nextPrayer.name} Iqamah</strong> at <strong>${nextPrayerTime}</strong>`;
                     document.getElementById('prayer-countdown').innerHTML = 
                         `${hours}h ${minutes}m ${seconds}s`;
                 }
