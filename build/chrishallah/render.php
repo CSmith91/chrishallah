@@ -9,12 +9,27 @@
     $prayer_times = get_islamic_prayer_times(); // Ensure this function exists.
 
     if ( $prayer_times ) :
+
+		$labels = [
+			'start' => 'Start',  // Change this to 'Begins' in one place if needed
+			'iqamah' => 'Iqamah'
+		];
+		
+		$prayers = [
+			'Fajr' => ['fajr', true],
+			'Sunrise' => ['sunrise', false],
+			'Zuhr' => ['zuhr', true],
+			'Asr' => ['asr', true],
+			'Maghrib' => ['maghrib', true],
+			'Isha' => ['isha', true]
+		];
     ?>
+
+
 
         <!-- Date Section -->
         <div class="prayer-times-dates">
-            <p><strong><?php echo esc_html( $prayer_times['greg-today'] ); ?></strong></p>
-            <p><strong><?php echo esc_html( $prayer_times['hijri-today'] ); ?></strong></p>
+			<p><strong><?php echo esc_html( $prayer_times['greg-today'] ); ?> • <?php echo esc_html( $prayer_times['hijri-today'] ); ?></strong></p>
         </div>
 
         <!-- Countdown & Next Prayer -->
@@ -26,47 +41,24 @@
         <!-- Prayer Times List -->
 		<div class="prayer-times-table">
 			<div class="prayer-grid">
-				<div class="prayer-cell" id="Fajr-cell">
-					<!-- <img src="fajr.png" alt="Fajr" class="prayer-icon"> -->
-					<span class="prayer-name">Fajr</span>
-					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['fajr']); ?></span>
-					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['fajr'] ?? '-'); ?></span>
-				</div>
-
-				<div class="prayer-cell" id="Sunrise-cell">
-					<!-- <img src="sunrise.png" alt="Sunrise" class="prayer-icon"> -->
-					<span class="prayer-name">Sunrise</span>
-					<span class="prayer-time"><?php echo esc_html($prayer_times['prayer_times_base']['sunrise']); ?></span>
-				</div>
-
-				<div class="prayer-cell" id="Zuhr-cell">
-					<!-- <img src="zuhr.png" alt="Zuhr" class="prayer-icon"> -->
-					<span class="prayer-name">Zuhr</span>
-					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['zuhr']); ?></span>
-					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['zuhr'] ?? '-'); ?></span>
-				</div>
-
-				<div class="prayer-cell" id="Asr-cell">
-					<!-- <img src="asr.png" alt="Asr" class="prayer-icon"> -->
-					<span class="prayer-name">Asr</span>
-					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['asr']); ?></span>
-					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['asr'] ?? '-'); ?></span>
-				</div>
-
-				<div class="prayer-cell" id="Maghrib-cell">
-					<!-- <img src="maghrib.png" alt="Maghrib" class="prayer-icon"> -->
-					<span class="prayer-name">Maghrib</span>
-					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['maghrib']); ?></span>
-					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['maghrib'] ?? '-'); ?></span>
-				</div>
-
-				<div class="prayer-cell" id="Isha-cell">
-					<!-- <img src="isha.png" alt="Isha" class="prayer-icon"> -->
-					<span class="prayer-name">Isha</span>
-					<span class="prayer-time">Start<br><?php echo esc_html($prayer_times['prayer_times_base']['isha']); ?></span>
-					<span class="prayer-iqamah">Iqamah<br><?php echo esc_html($prayer_times['iqamah_times']['isha'] ?? '-'); ?></span>
-				</div>
+				<?php foreach ($prayers as $name => [$key, $hasIqamah]) : ?>
+					<div class="prayer-cell" id="<?php echo esc_attr($name); ?>-cell">
+						<!-- <img src="<?php echo esc_attr($key); ?>.png" alt="<?php echo esc_attr($name); ?>" class="prayer-icon"> -->
+						<span class="prayer-name"><?php echo esc_html($name); ?></span>
+						<span class="prayer-time">
+							<?php echo esc_html($labels['start']); ?><br>
+							<?php echo esc_html($prayer_times['prayer_times_base'][$key]); ?>
+						</span>
+						<?php if ($hasIqamah) : ?>
+							<span class="prayer-iqamah">
+								<?php echo esc_html($labels['iqamah']); ?><br>
+								<?php echo esc_html($prayer_times['iqamah_times'][$key] ?? '-'); ?>
+							</span>
+						<?php endif; ?>
+					</div>
+				<?php endforeach; ?>
 			</div>
+		</div>
 
 
     <?php else : ?>
