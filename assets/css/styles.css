@@ -24,6 +24,7 @@ body {
     justify-content: center; /* Center content vertically */
     color: var(--text-brown); /* Consistent text color */
     font-size: 1.1em; /* Set a readable font size */
+    cursor: default;
 }
 
 .prayer-times-dates p,
@@ -53,6 +54,7 @@ body {
     border-radius: 12px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: default;
 }
 
 .prayer-cell:hover {

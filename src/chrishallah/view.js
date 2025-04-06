@@ -21,5 +21,5 @@
  */
 
 /* eslint-disable no-console */
-console.log( 'Hello World! (from create-block-chrishallah block)' );
+//console.log( 'Hello World! (from create-block-chrishallah block)' );
 /* eslint-enable no-console */

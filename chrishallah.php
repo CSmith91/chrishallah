@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:       Chrishallah
- * Description:       Shows prayer times local to Lambeth.
- * Version:           0.1.0
+ * Description:       REQUIRES CHRISSMI PRAYER TIMES PLUGIN FOR SHORTCODES. Shows prayer times local to Lambeth.
+ * Version:           1.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Chris Smith
@@ -25,9 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
-// Include prayer times logic
-require_once plugin_dir_path( __FILE__ ) . 'inc/prayer-times.php';
-
 // Initialise the plugin 
 function create_block_chrishallah_block_init() {
 	if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) { // Function introduced in WordPress 6.8.
@@ -49,13 +46,40 @@ function enqueue_prayer_assets() {
     if ( ! is_admin() ) { // Load only on frontend
 
         // Enqueue JavaScript
-        wp_enqueue_script(
-            'prayer-timer', 
-            plugin_dir_url(__FILE__) . 'assets/js/prayer-timer.js', 
-            array(), // Remove jQuery if not needed
-            null, 
-            true
-        );
+        wp_enqueue_script('ptm-prayer-times', plugin_dir_url(__FILE__) . 'assets/js/prayer-timer.js', array(), '1.0', true);
+
+        // Get prayer data from DB
+        global $wpdb;
+        $table = $wpdb->prefix . 'prayer_times';
+        $today = date('Y-m-d');
+        $row = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE prayer_date = %s", $today));
+    
+        if ($row) { 
+            $iqamah = [
+                'fajr'    => $row->fajr_iqamah,
+                'zuhr'    => $row->zuhr_iqamah,
+                'asr'     => $row->asr_iqamah,
+                'maghrib' => $row->maghrib_iqamah,
+                'isha'    => $row->isha_iqamah,
+            ];
+
+            $timestamps = [
+                'timestamp-fajr'    => strtotime($row->fajr_iqamah),
+                'timestamp-zuhr'    => strtotime($row->zuhr_iqamah),
+                'timestamp-asr'     => strtotime($row->asr_iqamah),
+                'timestamp-maghrib' => strtotime($row->maghrib_iqamah),
+                'timestamp-isha'    => strtotime($row->isha_iqamah),
+            ];
+    
+            $data = [
+                'iqamah_times' => $iqamah,
+                'timestamps'   => $timestamps
+            ];
+        } else {
+            $data = [];
+        }
+    
+        wp_localize_script('ptm-prayer-times', 'ptmData', $data);
 
         // Enqueue CSS
         wp_enqueue_style(
